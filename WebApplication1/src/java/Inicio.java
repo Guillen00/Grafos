@@ -17,6 +17,7 @@ public class Inicio extends javax.swing.JFrame {
     public DefaultListModel grafosmodel = new DefaultListModel();
     public int contador;
     private String ruta_archivo = "";
+    public String grafo;
     /**
      * Creates new form Inicio
      */
@@ -149,7 +150,9 @@ public class Inicio extends javax.swing.JFrame {
         // Abrir grafos
         String archivo = jList1.getSelectedValue();
         System.out.println(archivo);
+        grafo=archivo ;
         Segunda abrir = new Segunda();
+        abrir.name(grafo);
         abrir.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed

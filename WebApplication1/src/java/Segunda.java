@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -21,6 +22,7 @@ public class Segunda extends javax.swing.JFrame {
     public DefaultTreeModel modelo = new DefaultTreeModel(grafostree);
     DefaultMutableTreeNode nodo = new DefaultMutableTreeNode();  
     DefaultMutableTreeNode aristas = new DefaultMutableTreeNode();
+    public String name;
     
     /**
      *
@@ -30,6 +32,7 @@ public class Segunda extends javax.swing.JFrame {
      * Creates new form Segunda
      */
     public Segunda() {
+        
         initComponents();
         //radio botones para el boton de borrar
         jRadioButton1.setSelected(true);
@@ -44,7 +47,11 @@ public class Segunda extends javax.swing.JFrame {
         
         
     }
-
+    public void name(String nombre){
+        name= nombre;
+        nombrelabel.setText(name);
+        nombrelabel.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +61,7 @@ public class Segunda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        nombrelabel = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -81,7 +88,8 @@ public class Segunda extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Grafo #");
+        nombrelabel.setFont(new java.awt.Font("Engravers MT", 1, 12)); // NOI18N
+        nombrelabel.setText("Grafo #");
 
         jButton1.setText("Crear Nodo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +176,7 @@ public class Segunda extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(463, 463, 463)
-                .addComponent(jLabel1)
+                .addComponent(nombrelabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -213,7 +221,7 @@ public class Segunda extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(nombrelabel)
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -287,25 +295,48 @@ public class Segunda extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //Crear csv
-        ArrayList<String> nodos = new ArrayList<String>();
-        ArrayList<String> aristas = new ArrayList<String>();
+        String [] nodos = new String [nodosmodel.getSize()];
+        String [] aristas = new String [aristasmodel.getSize()];
+        
         int i=0;
         while(i<nodosmodel.getSize()){
-            nodos.add(nodosmodel.elementAt(i).toString());
+            nodos[i] = nodosmodel.elementAt(i).toString();
             i++;
         }
         i=0;
         while(i<aristasmodel.getSize()){
-            aristas.add(aristasmodel.elementAt(i).toString());
+            aristas[i] = aristasmodel.elementAt(i).toString();
             i++;
         }
         
-        System.out.println(nodos);
-        System.out.println(aristas);
-        Object[][] datos = new Object [2][2];
-        datos[0][0] = nodos;
-        datos[1][0] = aristas;
-        System.out.println(datos[1][0]);
+        System.out.println(Arrays.toString(nodos));
+        System.out.println(Arrays.toString(aristas));
+        i=0;
+        int j=0;
+        int celda =0;
+        if (nodosmodel.getSize()<aristasmodel.getSize()){
+            celda=aristasmodel.getSize();
+        }
+        else{ celda=nodosmodel.getSize(); 
+        }
+        
+        
+        Object[][] datos = new Object [2][celda];
+        
+        
+            while (j<nodosmodel.getSize()){
+                datos[0][j] = nodos[j];
+                j++;
+            }
+            j=0;
+            while (j<aristasmodel.getSize()){
+                datos[1][j] = aristas[j];
+                j++;
+            }
+        CrearFicherosExcel pasar=new CrearFicherosExcel();
+        pasar.pasar_csv(datos);
+        
+        
         
         
         
@@ -346,30 +377,25 @@ public class Segunda extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // Borrar por ID
         String borrar = BORRARID.getText();
-        System.out.println(borrar);
         int i =0;
         
         while(i<nodosmodel.size()){
             if (nodosmodel.elementAt(i).toString() == null ? borrar == null : nodosmodel.elementAt(i).toString().equals(borrar)){
                 nodosmodel.removeElementAt(i);
                 jList1.setModel(nodosmodel);
-                System.out.println("nodo");
             }
             i++;
-            System.out.println("NODO VUELTA");
+            
         }
         i=0;
         while(i<aristasmodel.size()){
             if (aristasmodel.elementAt(i).toString() == null ? borrar == null : aristasmodel.elementAt(i).toString().equals(borrar)){
                 aristasmodel.removeElementAt(i);
                 jList2.setModel(aristasmodel);
-                System.out.println("arista");
-                i++;
+                
             }
             i++;
-            System.out.println("ARISTA VUELTA");
         }
-        System.out.println("Listo");
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -416,7 +442,6 @@ public class Segunda extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -432,5 +457,6 @@ public class Segunda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTree jTree1;
+    private javax.swing.JLabel nombrelabel;
     // End of variables declaration//GEN-END:variables
 }
