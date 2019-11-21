@@ -66,7 +66,7 @@ public class Segunda extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jButton4 = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
+        BORRARID = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
@@ -131,8 +131,13 @@ public class Segunda extends javax.swing.JFrame {
         jRadioButton2.setText("Aristas");
 
         jButton4.setText("Borrar por ID");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
-        jTextField4.setText("ID");
+        BORRARID.setText("ID");
 
         jButton5.setText("Visualizar Grafo");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +179,7 @@ public class Segunda extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jRadioButton2)
                             .addComponent(jRadioButton1)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(BORRARID, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(82, 82, 82)
                         .addComponent(jLabel2)
@@ -240,7 +245,7 @@ public class Segunda extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BORRARID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
@@ -282,27 +287,16 @@ public class Segunda extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //Crear csv
-        //ArrayList<String> nodos = new ArrayList<String>();
-        //ArrayList<String> aristas = new ArrayList<String>();
-        String [] nodos= new String [10];
-        String [] aristas= new String [10];
+        ArrayList<String> nodos = new ArrayList<String>();
+        ArrayList<String> aristas = new ArrayList<String>();
         int i=0;
-        /*while(i<nodosmodel.getSize()){
+        while(i<nodosmodel.getSize()){
             nodos.add(nodosmodel.elementAt(i).toString());
             i++;
         }
         i=0;
         while(i<aristasmodel.getSize()){
             aristas.add(aristasmodel.elementAt(i).toString());
-            i++;
-        }*/
-        while(i<nodosmodel.getSize()){
-            nodos[i]= nodosmodel.elementAt(i).toString();
-            i++;
-        }
-        i=0;
-        while(i<aristasmodel.getSize()){
-            aristas[i]= aristasmodel.elementAt(i).toString();
             i++;
         }
         
@@ -311,7 +305,10 @@ public class Segunda extends javax.swing.JFrame {
         Object[][] datos = new Object [2][2];
         datos[0][0] = nodos;
         datos[1][0] = aristas;
-        System.out.println(datos);
+        System.out.println(datos[1][0]);
+        
+        
+        
         //Visualizar grafo
         SwingBrowser browser = new SwingBrowser();
         browser.loadURL("file:///C:/Users/leona/Desktop/index.html");
@@ -345,6 +342,35 @@ public class Segunda extends javax.swing.JFrame {
             modelo.removeNodeFromParent(aristas);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // Borrar por ID
+        String borrar = BORRARID.getText();
+        System.out.println(borrar);
+        int i =0;
+        
+        while(i<nodosmodel.size()){
+            if (nodosmodel.elementAt(i).toString() == null ? borrar == null : nodosmodel.elementAt(i).toString().equals(borrar)){
+                nodosmodel.removeElementAt(i);
+                jList1.setModel(nodosmodel);
+                System.out.println("nodo");
+            }
+            i++;
+            System.out.println("NODO VUELTA");
+        }
+        i=0;
+        while(i<aristasmodel.size()){
+            if (aristasmodel.elementAt(i).toString() == null ? borrar == null : aristasmodel.elementAt(i).toString().equals(borrar)){
+                aristasmodel.removeElementAt(i);
+                jList2.setModel(aristasmodel);
+                System.out.println("arista");
+                i++;
+            }
+            i++;
+            System.out.println("ARISTA VUELTA");
+        }
+        System.out.println("Listo");
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,6 +408,7 @@ public class Segunda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField BORRARID;
     private javax.swing.JTextField IDNODO1;
     private javax.swing.JTextField IDNODO2;
     private javax.swing.JButton jButton1;
@@ -404,7 +431,6 @@ public class Segunda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 }
