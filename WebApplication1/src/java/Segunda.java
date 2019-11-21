@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -280,6 +281,37 @@ public class Segunda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        //Crear csv
+        //ArrayList<String> nodos = new ArrayList<String>();
+        //ArrayList<String> aristas = new ArrayList<String>();
+        String [] nodos= new String [10];
+        String [] aristas= new String [10];
+        int i=0;
+        /*while(i<nodosmodel.getSize()){
+            nodos.add(nodosmodel.elementAt(i).toString());
+            i++;
+        }
+        i=0;
+        while(i<aristasmodel.getSize()){
+            aristas.add(aristasmodel.elementAt(i).toString());
+            i++;
+        }*/
+        while(i<nodosmodel.getSize()){
+            nodos[i]= nodosmodel.elementAt(i).toString();
+            i++;
+        }
+        i=0;
+        while(i<aristasmodel.getSize()){
+            aristas[i]= aristasmodel.elementAt(i).toString();
+            i++;
+        }
+        
+        System.out.println(nodos);
+        System.out.println(aristas);
+        Object[][] datos = new Object [2][2];
+        datos[0][0] = nodos;
+        datos[1][0] = aristas;
+        System.out.println(datos);
         //Visualizar grafo
         SwingBrowser browser = new SwingBrowser();
         browser.loadURL("file:///C:/Users/leona/Desktop/index.html");
@@ -289,7 +321,7 @@ public class Segunda extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //Crear Aristas
-        aristasmodel.addElement(IDNODO1.getText()+","+IDNODO2.getText());
+        aristasmodel.addElement(IDNODO1.getText()+"-"+IDNODO2.getText());
         jList2.setModel(aristasmodel); 
         aristas = new DefaultMutableTreeNode(IDNODO1.getText()+","+IDNODO2.getText());
         modelo.insertNodeInto(aristas, grafostree,0);    
