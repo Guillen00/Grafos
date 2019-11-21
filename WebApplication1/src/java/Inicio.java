@@ -22,6 +22,7 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        setLocationRelativeTo(null);
         
         
     }
@@ -65,6 +66,11 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         jButton3.setText("Abrir Grafo");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Borrar ");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +144,15 @@ public class Inicio extends javax.swing.JFrame {
             ruta_archivo = j.getSelectedFile().getAbsolutePath();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Abrir grafos
+        String archivo = jList1.getSelectedValue();
+        System.out.println(archivo);
+        Segunda abrir = new Segunda();
+        abrir.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
