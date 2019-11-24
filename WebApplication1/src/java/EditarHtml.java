@@ -5,21 +5,34 @@
  */
 
 import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 
 public class EditarHtml {
 
     static Scanner sc = new Scanner(System.in);
     static RandomAccessFile fichero = null;
-
     public static void main(String[] args) {
+    //public void EditarHtml(Object[][] datos) {
         String  numero;
         try {
+            String fromFile = "C:\\Users\\leona\\Desktop\\lee datos - copia (2).html";
+            String toFile = "C:\\Users\\leona\\Desktop\\lee lista.html";
+            boolean result = copyFile(fromFile, toFile);
+            System.out.println(result?
+            "Success! File copying (Éxito! Fichero copiado)":
+                "Error! Failed to copy the file (Error! No se ha podido copiar el fichero)");
+
             //se abre el fichero para lectura y escritura
-            fichero = new RandomAccessFile("C:\\Users\\leona\\Desktop\\lee datos - copia.html", "rw");
+            fichero = new RandomAccessFile("C:\\Users\\leona\\Desktop\\lee lista.html", "rw");
             mostrarFichero(); //muestra el contenido original del fichero
             System.out.print("Introduce una palabra  para añadir al final del fichero: ");
             numero = sc.nextLine(); //se lee el entero a añadir en el fichero
@@ -59,4 +72,28 @@ public class EditarHtml {
             System.out.println(ex.getMessage());
         }
     }
-}
+    public static boolean copyFile(String fromFile, String toFile) {
+        File origin = new File(fromFile);
+        File destination = new File(toFile);
+        if (origin.exists()) {
+            try {
+                InputStream in = new FileInputStream(origin);
+                OutputStream out = new FileOutputStream(destination);
+                // We use a buffer for the copy (Usamos un buffer para la copia).
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = in.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
+                in.close();
+                out.close();
+                return true;
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+                }

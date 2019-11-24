@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Segunda interfase del programa el cual muestra los nodos y aristas que conforman el nodo seleccionado y además tiene una sección donde se ve lo que contiene
+ * el grafo y por otro lado un panel en el cual se muestra el grafo creado 
  */
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +13,9 @@ import javax.swing.tree.DefaultTreeModel;
  * @author leona
  */
 public class Segunda extends javax.swing.JFrame {
-    
+    /**
+    * Definimos las variables que controlaran las listas en donde se visualizaran las aristas y nodos además el árbol también se define ahí y varias variables más
+    */
     public DefaultListModel nodosmodel = new DefaultListModel();
     public DefaultListModel aristasmodel = new DefaultListModel();
     public DefaultMutableTreeNode grafostree = new DefaultMutableTreeNode("Grafo");
@@ -29,7 +30,7 @@ public class Segunda extends javax.swing.JFrame {
      */
      
     /**
-     * Creates new form Segunda
+     * Inicializa los componentes y define un grupo de radiobutton para poder seleccionar solo uno y de agrega un modelo al árbol
      */
     public Segunda() {
         
@@ -47,6 +48,9 @@ public class Segunda extends javax.swing.JFrame {
         
         
     }
+    /**
+        * Recibe el nombre del grafo que se abrio en la interfase anterior
+        */
     public void name(String nombre){
         name= nombre;
         nombrelabel.setText(name);
@@ -281,7 +285,9 @@ public class Segunda extends javax.swing.JFrame {
     }//GEN-LAST:event_IDNODO1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       // Crear nodo o grafo 
+       /**
+        * Crea nodos en el grafo y lo crea a su ves en el res api
+        */
         int i=0;
         
         nodosmodel.addElement("Nodo "+contador);
@@ -294,7 +300,10 @@ public class Segunda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        //Crear csv
+       /**
+        * Esta función cera dos listas que posteriormente se pasara a una matriz para lograr exportar el grafo a un archivo csv, un archivo html recibe 
+        * ese archivo y separa la matriz en dos listas nodos y grafos para poder crear el grafo que se mostrara en el panel
+        */
         String [] nodos = new String [nodosmodel.getSize()];
         String [] aristas = new String [aristasmodel.getSize()];
         
@@ -334,7 +343,7 @@ public class Segunda extends javax.swing.JFrame {
                 j++;
             }
         CrearFicherosExcel pasar=new CrearFicherosExcel();
-        pasar.pasar_csv(datos);
+        pasar.pasar_csv(datos,nodosmodel.getSize(),aristasmodel.getSize());
         
         
         
@@ -348,7 +357,10 @@ public class Segunda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //Crear Aristas
+        /**
+        * Crea aristas en el grafo y lo crea a su ves en el res api con los nodos que se encuenten en las entradas respectivas 
+        */
+        
         aristasmodel.addElement(IDNODO1.getText()+"-"+IDNODO2.getText());
         jList2.setModel(aristasmodel); 
         aristas = new DefaultMutableTreeNode(IDNODO1.getText()+","+IDNODO2.getText());
@@ -357,7 +369,9 @@ public class Segunda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Borrar datos
+        /**
+        * Se borran los nodos o las aristas dependiendo de cual radiobotton esta seleccionado
+        */
         ; 
          if(jRadioButton1.isSelected()){
             nodosmodel.clear();
@@ -375,7 +389,9 @@ public class Segunda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // Borrar por ID
+        /**
+        * Borra un nodo o una arista la cual se toma como referencia por su nombre o ID 
+        */
         String borrar = BORRARID.getText();
         int i =0;
         
@@ -399,7 +415,7 @@ public class Segunda extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Función principar que mantiene en un ciclo el cual actualiza la interfase a cada momento
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
