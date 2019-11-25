@@ -31,5 +31,23 @@
             "weight":"OTRO peso de la ruta"
         }
 
+    },
+
+    {
+        "id":"3",
+        "nodes": {
+            "id":"3",
+            "inDegree":"OTRO input",
+            "outDegree":"OTRO output",
+            "entity":"OTRO objet json"
+        },
+        "edges":{
+            "id":"3",
+            "start":"OTRO nodo inicial",
+            "end":"OTRO nodo final",
+            "weight":"OTRO peso de la ruta"
+        }
+
     }
+
 ]
