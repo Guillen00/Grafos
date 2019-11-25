@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * En esta clase se copia el archivo original para editar uno secundario y se le añaden las listas de datos de notos y aristas 
  */
 
 import java.io.EOFException;
