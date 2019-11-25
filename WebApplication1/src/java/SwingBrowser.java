@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Esta clase se encarga de crear el grafo en el jPanel, practicamente crea un navegador en el cual proyectamos el html
  */
 
 
@@ -22,11 +20,16 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 public class SwingBrowser extends JFXPanel {
-//Variable encargada de renderizar el website
+    /**
+     * Variable encargada de renderizar el website
+     */
+
 
     private WebEngine engine;
-
-    //Constructor de la clase
+    /**
+     * Constructor de la clase
+     */
+    
     public SwingBrowser() {
         Platform.runLater(new Runnable() {
             @Override
@@ -38,7 +41,9 @@ public class SwingBrowser extends JFXPanel {
         });
         setVisible(true);
     }
-//Método para cargar la URL de la página web
+    /**
+     * Método para cargar la URL de la página web
+     */
 
     public void loadURL(final String url) {
         Platform.runLater(new Runnable() {
@@ -53,7 +58,9 @@ public class SwingBrowser extends JFXPanel {
             }
         });
     }
-
+    /**
+     * Intenta pasar el string en un url y si no se puede retorna null
+     */
     private String toURL(String str) {
         try {
             return new URL(str).toExternalForm();

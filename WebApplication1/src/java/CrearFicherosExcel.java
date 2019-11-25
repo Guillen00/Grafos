@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Esta clase se encarga de pasar los datos de aristas y nodos que tenian los grafos a un archivo CSV el cual contendra los nodos y aristas ,para metodos de la 
+ *interfase se elimina el anterior porque estos serán almacenados en memoria en el servidor , y se sustituira el archivo creado anteriormente 
  */
 
 
@@ -19,10 +18,15 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.commons.collections4.ListValuedMap;
 public class CrearFicherosExcel {
+    /**
+     * Constructor 
+     */
         public CrearFicherosExcel(){}
         
-        
-	public void pasar_csv(Object [][] document) {
+        /**
+     * Pasa la información al archivo csv crenadolo nuevo 
+     */
+	public void pasar_csv(Object [][] document,int nodos,int aristas) {
 		
 		String nombreArchivo="Inventario_new.csv";
 		String rutaArchivo= "C:\\Users\\leona\\Desktop\\"+nombreArchivo;
@@ -30,39 +34,41 @@ public class CrearFicherosExcel {
 		
 		XSSFWorkbook libro= new XSSFWorkbook();
 		XSSFSheet hoja1 = libro.createSheet(hoja);
-		//cabecera de la hoja de excel
-		String [] header= new String[]{"Código", "Producto","Precio","Unidades"};
-		/*Object [][] document =new Object[][]{
-                    {"leo","guillen","fernandez","50"},
-                    {"AP150","ACCESS POINT TP-LINK TL-WA901ND 450Mbps Wireless N 1RJ45 10-100 3Ant.","112.00","50"}
-                };*/
-		//contenido de la hoja de excel
-		//String [][] document= new String [][]{
-				//{"AP150","ACCESS POINT TP-LINK TL-WA901ND 450Mbps Wireless N 1RJ45 10-100 3Ant.","112.00","50"}
-		//};
 		
-		//poner negrita a la cabecera
 		CellStyle style = libro.createCellStyle();
-        XSSFFont font = libro.createFont();
-        font.setBold(true);
-        style.setFont(font);
+                XSSFFont font = libro.createFont();
+                font.setBold(true);
+                style.setFont(font);
         
         
-		//generar los datos para el documento
+		/**
+     * Genera los datos del documento
+     */
 		for (int i = 0; i <= document.length-1; i++) {
 			XSSFRow row=hoja1.createRow(i);//se crea las filas
-			for (int j = 0; j <header.length; j++) {
-				if (i==0) {//para la cabecera
-						XSSFCell cell= row.createCell(j);//se crea las celdas para la cabecera, junto con la posición
-						//cell.setCellStyle(style); // se añade el style crea anteriormente 
-						cell.setCellValue((String) document[0][j]);//se añade el contenido					
-				}else{//para el contenido
-					XSSFCell cell= row.createCell(j);//se crea las celdas para la contenido, junto con la posición
-					cell.setCellValue((String) document[1][j]); //se añade el contenido
-				}				
+			
+			if (i==0) {//para la cabecera
+                            int j = 0;
+                            while( j < nodos){
+					XSSFCell cell= row.createCell(j);//se crea las celdas para la cabecera, junto con la posición
+					//cell.setCellStyle(style); // se añade el style crea anteriormente 
+					cell.setCellValue((String) document[0][j]);//se añade el contenido
+                                        j++;
+                            }
+                                
 			}
+                        else{   //para el contenido
+                            int j = 0;
+                            while( j < aristas){
+				XSSFCell cell= row.createCell(j);//se crea las celdas para la contenido, junto con la posición
+				cell.setCellValue((String) document[1][j]); //se añade el contenido
+                                j++;
+			}}				
+			
 		}
-		
+		/**
+     * Revisa si el archivo fue creado , si esta creado lo sustituye y sino lo guarda nada más
+     */
 		File file;
 		file = new File(rutaArchivo);
 		try (FileOutputStream fileOuS = new FileOutputStream(file)){						

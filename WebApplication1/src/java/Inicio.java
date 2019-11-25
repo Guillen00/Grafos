@@ -4,9 +4,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Primera interfase donde de inicia creando, o añadiendo el archivo del grafo y además funciona como enlace oara la seguda interfase 
  */
 
 /**
@@ -14,14 +12,20 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author leona
  */
 public class Inicio extends javax.swing.JFrame {
+    /**
+ *
+ * Se crean las bariables necesarias como la de las Jlist , int y String 
+ */
     public DefaultListModel grafosmodel = new DefaultListModel();
     public int contador;
+    public int contador1;
     private String ruta_archivo = "";
     public String grafo;
     /**
-     * Creates new form Inicio
+     * Función que llama a todos los componentes que componen la interfase grafica y además añade la caracteristica de centrar el cuadro.
      */
     public Inicio() {
+        
         initComponents();
         setLocationRelativeTo(null);
         
@@ -123,20 +127,26 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Crear Grafo
+        /**
+        * Crea un grafo en el res api y lo añade en la Jlist para tener una representación gráfica de donde se encuentra el grafo o si no esta.
+        */
         grafosmodel.addElement("Grafo "+contador);
         jList1.setModel(grafosmodel); 
         contador++;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // Borrar
+        /**
+        * Esta función borra el grafo de la lista y lo elimina del res api 
+        */
         int index = jList1.getSelectedIndex();
         grafosmodel.remove(index);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Importar csv
+        /**
+        * Importa un archivo CSV en el cual se extraen los valores de los nodos y de las aristas que componen el grafo añadido
+        */
         JFileChooser j = new JFileChooser(ruta_archivo);
         FileNameExtensionFilter fi = new FileNameExtensionFilter("csv", "csv");
         j.setFileFilter(fi);
@@ -144,10 +154,15 @@ public class Inicio extends javax.swing.JFrame {
         if (se == 0) {
             ruta_archivo = j.getSelectedFile().getAbsolutePath();
         }
+        grafosmodel.addElement("Grafo Importado "+contador1);
+        jList1.setModel(grafosmodel);
+        contador1++;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Abrir grafos
+        /**
+        * Abre la segunda interfase donde se muestra la descripción de todos los nodos del nuevo grafo creado o del grafo importado 
+        */
         String archivo = jList1.getSelectedValue();
         System.out.println(archivo);
         grafo=archivo ;
@@ -158,7 +173,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Función principar que mantiene en un ciclo el cual actualiza la interfase a cada momento
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
