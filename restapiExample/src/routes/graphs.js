@@ -123,8 +123,8 @@ router.get('/:id/edges', (req, res) => {
 router.post('/', (req, res) => {
     //Se presenta un bug en las dos siguientes lineas
 
-    //const id = graphs.length + 1;
-    const id = req.params.id;
+    const id = graphs.length + 1;
+    //const id = req.params.id;
     const { nodes, edges } = req.body;
     const newGraph = { ...req.body, id };
     if (id && nodes && edges) {
@@ -233,17 +233,11 @@ router.put('/:id/nodes/:id2', (req, res) => {
 router.put('/:id/edges/:id2', (req, res) => { 
     const id = req.params.id;
     const id2 = req.params.id;
-    const num1 = req.query.num1;
-    const num2 = req.query.num2;
-    const num3 = req.query.num3;
     // Searching node for the id
     for (let graph of graphs) {
         if (graph.id === id) {
             for (let edge of graph.edges) {
                 if (edge.id === id2) {
-                    edge.startId = num1;
-                    edge.endId =num2;
-                    edge.weight = num3;
                     res.json(edge);
                     return;
                 }
