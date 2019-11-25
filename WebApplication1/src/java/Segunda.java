@@ -4,10 +4,12 @@
  */
 import java.util.ArrayList;
 import java.util.Arrays;
+import static javafx.beans.binding.Bindings.and;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.JOptionPane;
 /**
  *
  * @author leona
@@ -24,6 +26,7 @@ public class Segunda extends javax.swing.JFrame {
     DefaultMutableTreeNode nodo = new DefaultMutableTreeNode();  
     DefaultMutableTreeNode aristas = new DefaultMutableTreeNode();
     public String name;
+    public String [] lista = null;
     
     /**
      *
@@ -342,6 +345,35 @@ public class Segunda extends javax.swing.JFrame {
                 datos[1][j] = aristas[j];
                 j++;
             }
+        
+        i=0;    
+        int k=0;
+        j=0;
+        while(i<aristasmodel.getSize()){
+            k=0;
+            j=0;
+            lista= new String[2];
+            while(j<nodosmodel.getSize()){
+            if(datos[1][i].toString().contains(datos[0][j].toString())){
+                lista[k]= Integer.toString(j) ;
+                k++;
+                System.out.println("Paso igual");
+                }
+            j++;
+            System.out.println("Paso ciclo");
+        }
+            
+         if (lista[1]== null){
+         lista[1] = lista[0];
+                 }
+         System.out.println("Paso iguialdad");
+         datos[1][i]=Arrays.toString(lista);
+         
+        i++;}
+        
+        System.out.println(Arrays.toString(datos[0]));
+        System.out.println(Arrays.toString(datos[1]));
+        
         CrearFicherosExcel pasar=new CrearFicherosExcel();
         pasar.pasar_csv(datos,nodosmodel.getSize(),aristasmodel.getSize());
         
@@ -358,14 +390,47 @@ public class Segunda extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         /**
-        * Crea aristas en el grafo y lo crea a su ves en el res api con los nodos que se encuenten en las entradas respectivas 
+        * Crea aristas en el grafo y lo crea a su ves en el res api con los nodos que se encuenten en las entradas respectivas, revisa que los nodos existan
         */
-        
-        aristasmodel.addElement(IDNODO1.getText()+"-"+IDNODO2.getText());
-        jList2.setModel(aristasmodel); 
-        aristas = new DefaultMutableTreeNode(IDNODO1.getText()+","+IDNODO2.getText());
-        modelo.insertNodeInto(aristas, grafostree,0);    
-        
+        int k=0;
+        int j=0;
+        int i=0;
+        while(i<aristasmodel.getSize()){
+            if(IDNODO1.getText() == null ? aristasmodel.elementAt(i).toString() == null : IDNODO1.getText().equals(aristasmodel.elementAt(i).toString()) ){
+                j=1;
+                }
+            i++;
+            }
+        i=0;
+        while(i<nodosmodel.getSize()){
+            if(IDNODO1.getText() == null ? nodosmodel.elementAt(i).toString() == null : IDNODO1.getText().equals(nodosmodel.elementAt(i).toString()) ){
+                j=1;
+                }
+            i++;
+            }
+        while(i<aristasmodel.getSize()){
+            if(IDNODO2.getText() == null ? aristasmodel.elementAt(i).toString() == null : IDNODO2.getText().equals(aristasmodel.elementAt(i).toString()) ){
+                k=1;
+                }
+            i++;
+            }
+        i=0;
+        while(i<nodosmodel.getSize()){
+            if(IDNODO2.getText() == null ? nodosmodel.elementAt(i).toString() == null : IDNODO2.getText().equals(nodosmodel.elementAt(i).toString()) ){
+                k=1;
+                }
+            i++;
+            }
+        if(j == 1 & k == 1){
+            aristasmodel.addElement(IDNODO1.getText()+"-"+IDNODO2.getText());
+            jList2.setModel(aristasmodel); 
+            aristas = new DefaultMutableTreeNode(IDNODO1.getText()+","+IDNODO2.getText());
+            modelo.insertNodeInto(aristas, grafostree,0);    
+    }
+        else{
+            System.out.println("Algún nodo no existe");
+            JOptionPane.showMessageDialog(null, "No se puede crear arista, Algún nodo no existe");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
