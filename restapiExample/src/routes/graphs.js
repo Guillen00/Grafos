@@ -217,7 +217,7 @@ router.delete('/:id/edges/', (req, res) => {
         if (graph.id === id) {
             graph.nodes = [];
             graph.edges = [];
-           res.json(graph.edges);
+            res.json(graph.edges);
            
         }
     
@@ -230,10 +230,10 @@ router.post('/:idg/edges/', (req, res) => {
     for (let graph of graphs) {
         if (graph.id === idg) {
             //const id2 = graph.nodes.length + 1;
-            const {id, startId, endId, weight, sEntity, eEntity } = req.body;
+            const {id, start, end, weight } = req.body;
             const newEdge = { ...req.body };
 
-            if (id && startId && endId && weight && sEntity && eEntity) {
+            if (id && start && end && weight) {
                 graph.edges.push(newEdge);
                 res.json(graph.edges);
             } else {
