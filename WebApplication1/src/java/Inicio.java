@@ -1,4 +1,10 @@
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -21,6 +27,9 @@ public class Inicio extends javax.swing.JFrame {
     public int contador1;
     private String ruta_archivo = "";
     public String grafo;
+    public static final String SEPARATOR=";";
+   public static final String QUOTE="\"";
+   public String [] data;
     /**
      * Función que llama a todos los componentes que componen la interfase grafica y además añade la caracteristica de centrar el cuadro.
      */
@@ -30,6 +39,34 @@ public class Inicio extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         
+    }
+    public String[] datos(String url) throws IOException{
+        BufferedReader br = null;
+      String[] datos =new String[2];
+      try {
+         
+         br =new BufferedReader(new FileReader(url));
+         String line = br.readLine();
+         int i=0;
+         while (null!=line) {
+            String [] fields = line.split(SEPARATOR);
+            
+            datos[i]= Arrays.toString((fields));
+            i++;
+            //fields = removeTrailingQuotes(fields);
+            System.out.println(Arrays.toString(fields));
+            
+            line = br.readLine();
+         }
+         
+      } catch (IOException e) {
+         
+      } finally {
+         if (null!=br) {
+            br.close();
+         }
+      }  
+      return datos;
     }
 
     /**
@@ -157,6 +194,12 @@ public class Inicio extends javax.swing.JFrame {
         grafosmodel.addElement("Grafo Importado "+contador1);
         jList1.setModel(grafosmodel);
         contador1++;
+        
+        try {
+            data= datos(ruta_archivo).clone();
+        } catch (IOException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -170,6 +213,10 @@ public class Inicio extends javax.swing.JFrame {
         abrir.name(grafo);
         abrir.setVisible(true);
         this.setVisible(false);
+        if (jList1.getSelectedValue().contains("Grafo Importado")){
+            abrir.datosimportar(data);
+        
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

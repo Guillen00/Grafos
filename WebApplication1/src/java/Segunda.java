@@ -27,6 +27,7 @@ public class Segunda extends javax.swing.JFrame {
     DefaultMutableTreeNode aristas = new DefaultMutableTreeNode();
     public String name;
     public String [] lista = null;
+    public String [] datosimportados;
     
     /**
      *
@@ -46,7 +47,7 @@ public class Segunda extends javax.swing.JFrame {
         grupo1.add(jRadioButton2);
         
         
-        
+       
         jTree1.setModel(modelo);
         
         
@@ -58,6 +59,17 @@ public class Segunda extends javax.swing.JFrame {
         name= nombre;
         nombrelabel.setText(name);
         nombrelabel.setVisible(true);
+    }
+    
+    
+    public void datosimportar(String [] data){
+        int i=0;
+        datosimportados = new String [2];
+        while (i<data.length){
+            
+            datosimportados[i]=data[i];
+            i++;
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -540,4 +552,6 @@ public class Segunda extends javax.swing.JFrame {
     private javax.swing.JTree jTree1;
     private javax.swing.JLabel nombrelabel;
     // End of variables declaration//GEN-END:variables
+
+    
 }
