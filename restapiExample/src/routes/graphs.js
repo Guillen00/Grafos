@@ -55,7 +55,7 @@ router.put('/:id', (req, res) => {
     if (id && nodes && edges) {
         _.each(graphs, (graph, i) => {
             if (graph.id === id) {
-                graph.node = nodes;
+                graph.nodes = nodes;
                 graph.edges= edges;
         
             }
