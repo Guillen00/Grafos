@@ -368,7 +368,7 @@ public class Segunda extends javax.swing.JFrame {
                  }
          System.out.println("Paso iguialdad");
          datos[1][i]=Arrays.toString(lista);
-         //lista= null;
+         
         i++;}
         
         System.out.println(Arrays.toString(datos[0]));
